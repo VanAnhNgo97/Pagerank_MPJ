@@ -3,11 +3,14 @@ package pagerank;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,12 +22,15 @@ public class PagerankMPI {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			String inputFile =
+			File file = new File("");
+	        String parentPath = file.getAbsoluteFile().getParent();
+	        System.out.println(parentPath);
+	        String fileName = "test.txt";
+	        String outputFileName = "test1_MPJ.txt";
+			String inputFile = parentPath +"\\InputFile\\" + fileName;
 					// "C:\\Users\\user-pc\\Desktop\\test2.txt";
-					"E:\\ICT\\DistributedComputing\\Inputfile\\pagerank_10k.txt";
-			String outputFile =
-					// "C:\\Users\\user-pc\\Desktop\\result2.txt";
-					"E:\\ICT\\DistributedComputing\\OutputFile\\pagerank_10k_5.txt";
+					//"E:\\ICT\\DistributedComputing\\Inputfile\\pagerank_10k.txt";
+			String outputFile = parentPath + "\\OutputFile\\" + outputFileName;
 			int iteration = 8;
 			double dumpingFactor = 0.85;
 			MPI.Init(args);
@@ -364,8 +370,11 @@ public class PagerankMPI {
 			String line = "Rank\t\t\tNode_ID\t\t\tValue\n";
 			buffWriter.write(line);
 			int j = 1;
+			DecimalFormat df = new DecimalFormat("#.#####");
+			df.setRoundingMode(RoundingMode.CEILING);
 			for (int i = result.length - 1; i >= 0; i--) {
-				line = j + "\t\t\t\t" + result[i].getNode_id() + "\t\t\t\t" + result[i].getRank_value() + "\n";
+				double value = result[i].getRank_value();
+				line = j + "\t\t\t\t" + result[i].getNode_id() + "\t\t\t\t" + df.format(value) + "\n";
 				buffWriter.write(line);
 				j++;
 			}
@@ -374,6 +383,7 @@ public class PagerankMPI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 
 	}
 

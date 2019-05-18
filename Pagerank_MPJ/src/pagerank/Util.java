@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,7 +51,7 @@ public class Util {
 		}
 		double[] x = new double[total]; // xac suat cua node
 		double[] global_X = new double[total];
-		Arrays.fill(global_X, 1.0); // Khởi tạo vecto x
+		Arrays.fill(global_X, 1.0 / 8); // Khởi tạo vecto x
 		int count = 0;
 		do {
 			for (int i = 0; i < total; i++) {
@@ -201,8 +203,13 @@ public class Util {
 			String line = "Rank\t\t\tNode_ID\t\t\tValue\n";
 			buffWriter.write(line);
 			int j = 1;
+			DecimalFormat df = new DecimalFormat("#.#####");
+			df.setRoundingMode(RoundingMode.CEILING);
+			System.out.println(df.format(0.0345626));
 			for (int i = result.length - 1; i >= 0; i--) {
-				line = j + "\t\t\t\t" + result[i].getNode_id() + "\t\t\t\t" + result[i].getRank_value() + "\n";
+				double value = result[i].getRank_value();
+				/*System.out.println(df.format(value));*/
+				line = j + "\t\t\t\t" + result[i].getNode_id() + "\t\t\t\t" + df.format(value) + "\n";
 				buffWriter.write(line);
 				j++;
 			}

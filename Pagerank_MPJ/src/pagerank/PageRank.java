@@ -1,17 +1,23 @@
 package pagerank;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PageRank {
 	public static void main(String[] agrs) throws FileNotFoundException {
-		String inputFile =
+        File file = new File("");
+        String parentPath = file.getAbsoluteFile().getParent();
+        System.out.println(parentPath);
+        String fileName = "test.txt";
+        String outputFileName = "test1.txt";
+		String inputFile = parentPath +"\\InputFile\\" + fileName;
 				// "C:\\Users\\user-pc\\Desktop\\test2.txt";
-				"E:\\ICT\\DistributedComputing\\Inputfile\\pagerank_10k.txt";
-		String outputFile =
+				//"E:\\ICT\\DistributedComputing\\Inputfile\\pagerank_10k.txt";
+		String outputFile = parentPath + "\\OutputFile\\" + outputFileName;
 				// "C:\\Users\\user-pc\\Desktop\\result2.txt";
-				"E:\\ICT\\DistributedComputing\\OutputFile\\pagerank_10k_3.txt";
+			//	"E:\\ICT\\DistributedComputing\\OutputFile\\pagerank_10k_6.txt";
 		int iteration = 8;
 		double dumpingFactor = 0.85;
 		long start = System.currentTimeMillis();
